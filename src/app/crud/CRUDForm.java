@@ -201,6 +201,7 @@ public class CRUDForm extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        UpdateData();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -277,6 +278,33 @@ public class CRUDForm extends javax.swing.JFrame {
         }
     }
     
+    private void UpdateData() {
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn != null) {
+            try {
+            String sql = "UPDATE tbl_account SET name=?, email=?, password=? WHERE id_user=?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+
+                pst.setString(1, txtName.getText());
+                pst.setString(2, txtEmail.getText());
+                pst.setString(3, txtPassword.getText());
+                pst.setString(4, txtId.getText());
+
+                int rowsUpdated = pst.executeUpdate();
+                if (rowsUpdated > 0) {
+                    JOptionPane.showMessageDialog(this, "Data berhasil diperbarui!");
+                    LoadData();
+                }
+
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+        }
+    }
     
     /**
      * @param args the command line arguments
