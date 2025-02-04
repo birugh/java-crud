@@ -268,12 +268,14 @@ public class CRUDForm extends javax.swing.JFrame {
                 int rowsInserted = pst.executeUpdate();
                 if (rowsInserted > 0) {
                     JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
+                    LoadData();
                 }
-
+                
                 pst.close();
                 conn.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+                ResetInput();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
@@ -296,6 +298,7 @@ public class CRUDForm extends javax.swing.JFrame {
                 if (rowsUpdated > 0) {
                     JOptionPane.showMessageDialog(this, "Data berhasil diperbarui!");
                     LoadData();
+                    ResetInput();
                 }
 
                 pst.close();
@@ -331,6 +334,7 @@ public class CRUDForm extends javax.swing.JFrame {
                 conn.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+                ResetInput();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
