@@ -219,6 +219,37 @@ public class CRUDForm extends javax.swing.JFrame {
         txtId.requestFocus();
     }
     
+    private void LoadData() {
+        Connection conn = DatabaseConnection.getConnection();
+        DefaultTableModel model = (DefaultTableModel) tblAccount.getModel();
+        model.setRowCount(0); // Menghapus data sebelumnya
+
+        if (conn != null) {
+            try {
+                String sql = "SELECT * FROM tbl_account";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+
+                while (rs.next()) {
+                    Object[] row = {
+                        rs.getString("id_user"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password")
+                    };
+                    model.addRow(row);
+                }
+
+                rs.close();
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+        }
+    }
     
     private void InsertData() {
         Connection conn = DatabaseConnection.getConnection();
