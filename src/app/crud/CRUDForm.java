@@ -159,10 +159,27 @@ public class CRUDForm extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        InsertData();
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        ResetInput();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void ResetInput() {
+        txtId.setText("");
+        txtName.setText("");
+        txtEmail.setText("");
+        txtPassword.setText("");
+        txtId.requestFocus();
+    }
+    
+    private void InsertData() {
         Connection conn = DatabaseConnection.getConnection();
         if (conn != null) {
             try {
-                String sql = "INSERT INTO users (id, name, email, password) VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO tbl_account (id_user, name, email, password) VALUES (?, ?, ?, ?)";
                 PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setString(1, txtId.getText());
                 pst.setString(2, txtName.getText());
@@ -182,17 +199,8 @@ public class CRUDForm extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
         }
-    }//GEN-LAST:event_btnSubmitActionPerformed
-
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-        txtId.setText("");
-        txtName.setText("");
-        txtEmail.setText("");
-        txtPassword.setText("");
-        txtId.requestFocus();
-    }//GEN-LAST:event_btnResetActionPerformed
-
+    }
+    
     /**
      * @param args the command line arguments
      */
