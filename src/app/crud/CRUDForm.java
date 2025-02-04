@@ -4,6 +4,11 @@
  */
 package app.crud;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Javanaut
@@ -154,6 +159,29 @@ public class CRUDForm extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn != null) {
+            try {
+                String sql = "INSERT INTO users (id, name, email, password) VALUES (?, ?, ?, ?)";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, txtId.getText());
+                pst.setString(2, txtName.getText());
+                pst.setString(3, txtEmail.getText());
+                pst.setString(4, txtPassword.getText());
+
+                int rowsInserted = pst.executeUpdate();
+                if (rowsInserted > 0) {
+                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
+                }
+
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
