@@ -211,6 +211,7 @@ public class CRUDForm extends javax.swing.JFrame {
 
     private void tblAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccountMouseClicked
         // TODO add your handling code here:
+        TakeData();
     }//GEN-LAST:event_tblAccountMouseClicked
 
     private void ResetInput() {
@@ -333,6 +334,17 @@ public class CRUDForm extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+        }
+    }
+    
+    private void TakeData() {
+        int selectedRow = tblAccount.getSelectedRow();
+
+        if (selectedRow != -1) {
+            txtId.setText(tblAccount.getValueAt(selectedRow, 0).toString());
+            txtName.setText(tblAccount.getValueAt(selectedRow, 1).toString());
+            txtEmail.setText(tblAccount.getValueAt(selectedRow, 2).toString());
+            txtPassword.setText(tblAccount.getValueAt(selectedRow, 3).toString());
         }
     }
     
