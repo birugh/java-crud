@@ -49,6 +49,11 @@ public class CRUDForm extends javax.swing.JFrame {
         jLabel5.setText("Password");
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         tblAccount.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,6 +69,11 @@ public class CRUDForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblAccount);
 
         btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Name");
 
@@ -141,6 +151,19 @@ public class CRUDForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        txtId.setText("");
+        txtName.setText("");
+        txtEmail.setText("");
+        txtPassword.setText("");
+        txtId.requestFocus();
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
