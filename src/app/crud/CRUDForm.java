@@ -206,6 +206,7 @@ public class CRUDForm extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        DeleteData();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAccountMouseClicked
@@ -300,6 +301,35 @@ public class CRUDForm extends javax.swing.JFrame {
                 conn.close();
             } catch (SQLException e) {
                     JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
+        }
+    }
+    
+    private void DeleteData() {
+        Connection conn = DatabaseConnection.getConnection();
+        if (conn != null) {
+            try {
+                String sql = "DELETE FROM tbl_account WHERE id_user=?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, txtId.getText());
+
+                int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    int rowsDeleted = pst.executeUpdate();
+                    if (rowsDeleted > 0) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
+                        LoadData();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "ID tidak ditemukan!");
+                    }
+                }
+
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Koneksi database gagal!");
